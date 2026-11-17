@@ -1,1 +1,1 @@
-{ "git": { "deploymentEnabled": { "main": true } }, "ignoreCommand": "git diff HEAD^ HEAD --quiet -- . ':!data'" }
+{ "ignoreCommand": "git rev-parse --verify -q HEAD^ >/dev/null && git diff HEAD^ HEAD --quiet -- . ':!data'" }
