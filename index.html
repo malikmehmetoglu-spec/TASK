@@ -3,290 +3,158 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>منظّم المهام</title>
+<title>مهامي</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet" />
 <style>
-  :root { --navy:#0B1F3A; --navy2:#13305A; --yellow:#F5B700; --white:#fff; --bg:#F4F6FA; --muted:#6B7A90; --line:#E2E7EF; }
-  * { box-sizing:border-box; }
-  body { margin:0; font-family:"Rubik",sans-serif; background:var(--bg); color:var(--navy); }
-  button, input, select, textarea { font-family:inherit; font-size:15px; }
-  header { background:var(--navy); color:var(--white); padding:18px 28px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
-  header h1 { margin:0; font-size:22px; font-weight:700; }
-  header h1 span { color:var(--yellow); }
-  .sync { font-size:13px; opacity:.85; }
-  .wrap { max-width:1100px; margin:0 auto; padding:24px 20px 60px; }
-  .tabs { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px; }
-  .tab { border:2px solid var(--navy); background:var(--white); color:var(--navy); padding:8px 16px; border-radius:999px; cursor:pointer; font-weight:500; }
-  .tab.active { background:var(--navy); color:var(--yellow); }
-  .tab .n { font-size:12px; opacity:.75; margin-inline-start:6px; }
-  .stats { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:20px; }
-  .stat { background:var(--white); border-radius:12px; padding:14px 18px; border-inline-start:5px solid var(--yellow); }
-  .stat b { display:block; font-size:26px; }
-  .stat small { color:var(--muted); }
-  .card { background:var(--white); border-radius:14px; padding:18px; margin-bottom:20px; box-shadow:0 1px 3px rgba(11,31,58,.06); }
-  .card h2 { margin:0 0 14px; font-size:17px; }
-  form.add { display:grid; grid-template-columns:2fr 1fr 1fr 1fr auto; gap:10px; }
-  form.add textarea { grid-column:1 / -1; }
-  input, select, textarea { border:1px solid var(--line); border-radius:8px; padding:10px 12px; background:var(--white); color:var(--navy); width:100%; }
-  textarea { resize:vertical; min-height:42px; }
-  input:focus, select:focus, textarea:focus { outline:2px solid var(--yellow); border-color:transparent; }
-  .btn { background:var(--yellow); color:var(--navy); border:0; border-radius:8px; padding:10px 18px; font-weight:600; cursor:pointer; white-space:nowrap; }
-  .btn.navy { background:var(--navy); color:var(--white); }
-  .btn.ghost { background:transparent; color:var(--navy); border:1px solid var(--line); }
-  .toolbar { display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:12px; }
-  .toolbar input { max-width:260px; }
-  .toolbar select { max-width:160px; }
-  .task { display:flex; gap:12px; align-items:flex-start; padding:12px 6px; border-bottom:1px solid var(--line); }
-  .task:last-child { border-bottom:0; }
-  .chk { width:24px; height:24px; border-radius:6px; border:2px solid var(--navy); background:var(--white); cursor:pointer; flex:none; display:grid; place-items:center; color:var(--navy); font-weight:700; margin-top:2px; }
-  .task.done .chk { background:var(--yellow); border-color:var(--yellow); }
-  .task.done .t-title { text-decoration:line-through; color:var(--muted); }
-  .t-body { flex:1; min-width:0; }
-  .t-title { font-weight:500; }
-  .t-meta { font-size:13px; color:var(--muted); margin-top:4px; display:flex; gap:10px; flex-wrap:wrap; }
-  .t-notes { font-size:14px; color:#40506A; margin-top:6px; white-space:pre-wrap; }
-  .org { background:var(--navy); color:var(--yellow); padding:1px 8px; border-radius:6px; font-size:12px; }
-  .pri-high { color:#C0392B; font-weight:600; }
-  .over { color:#C0392B; }
-  .acts button { background:none; border:0; cursor:pointer; color:var(--muted); font-size:13px; padding:4px 6px; }
-  .acts button:hover { color:var(--navy); }
-  .empty { text-align:center; color:var(--muted); padding:30px; }
-  .report-form { display:grid; grid-template-columns:1fr 1fr 1fr auto; gap:10px; align-items:end; }
-  label small { display:block; color:var(--muted); margin-bottom:4px; }
-  #report { display:none; }
-  @media (max-width:760px){ form.add, .report-form { grid-template-columns:1fr 1fr; } .stats{grid-template-columns:1fr 1fr 1fr;} }
+  :root{--navy:#0E1F3D;--navy-2:#18305A;--yellow:#FFC629;--white:#fff;--ink:#0E1F3D;--soft:#8A94A6;--line:#ECEEF2;
+        --scroll-thumb:rgba(14,31,61,.18);--scroll-thumb-hover:rgba(14,31,61,.32);color-scheme:light}
+  *{box-sizing:border-box;margin:0;scrollbar-width:thin;scrollbar-color:var(--scroll-thumb) transparent}
+  ::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:transparent}
+  ::-webkit-scrollbar-thumb{background:var(--scroll-thumb);border-radius:99px}::-webkit-scrollbar-thumb:hover{background:var(--scroll-thumb-hover)}
+  ::-webkit-scrollbar-button,::-webkit-scrollbar-corner{display:none}
+  body{font-family:"Rubik",sans-serif;background:var(--white);color:var(--ink);height:100vh;display:flex}
+  button,input,select{font:inherit;color:inherit}
 
-  /* ---------- PRINT / PDF ---------- */
-  @page { size:A4; margin:14mm; }
-  @media print {
-    body { background:var(--white); }
-    header, .wrap > *:not(#report) { display:none !important; }
-    .wrap { padding:0; max-width:none; }
-    #report { display:block !important; }
-    * { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  /* side */
+  aside{width:250px;flex:none;background:var(--navy);color:var(--white);padding:32px 18px;display:flex;flex-direction:column;gap:4px}
+  .logo{font-weight:700;font-size:22px;padding:0 12px 28px}.logo i{font-style:normal;color:var(--yellow)}
+  .org{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-radius:12px;border:0;background:none;color:rgba(255,255,255,.7);cursor:pointer;text-align:right;font-size:16px}
+  .org:hover{background:var(--navy-2);color:var(--white)}
+  .org.on{background:var(--yellow);color:var(--navy);font-weight:500}
+  .org b{font-weight:500;font-size:13px;opacity:.8}
+  .sync{margin-top:auto;padding:12px;font-size:12px;color:rgba(255,255,255,.45)}
+
+  /* main */
+  main{flex:1;overflow:auto;padding:48px 56px}
+  .inner{max-width:680px;margin:0 auto}
+  .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
+  h1{font-size:32px;font-weight:700}
+  .pdf{border:0;background:var(--navy);color:var(--white);padding:10px 18px;border-radius:10px;cursor:pointer;font-weight:500}
+  .pdf:hover{background:var(--navy-2)}
+  .add{display:flex;align-items:center;gap:10px;border-bottom:2px solid var(--navy);padding:6px 0 12px;margin-bottom:12px}
+  .add input{flex:1;border:0;outline:0;font-size:18px;background:none}
+  .add input::placeholder{color:var(--soft)}
+  .add span{color:var(--yellow);font-size:26px;line-height:1;font-weight:700}
+  .row{display:flex;align-items:center;gap:14px;padding:14px 4px;border-bottom:1px solid var(--line)}
+  .row:hover .x{opacity:1}
+  .box{width:22px;height:22px;flex:none;border-radius:50%;border:2px solid var(--navy);background:none;cursor:pointer;display:grid;place-items:center}
+  .row.done .box{background:var(--yellow);border-color:var(--yellow)}
+  .row.done .box::after{content:"";width:6px;height:10px;border:solid var(--navy);border-width:0 2px 2px 0;transform:rotate(45deg) translate(-1px,-1px)}
+  .txt{flex:1;font-size:16px}
+  .row.done .txt{color:var(--soft);text-decoration:line-through}
+  .tag{font-size:12px;color:var(--soft)}
+  .x{opacity:0;border:0;background:none;color:var(--soft);cursor:pointer;font-size:18px;transition:.15s}
+  .x:hover{color:#C0392B}
+  .sec{margin-top:28px;font-size:13px;color:var(--soft);border:0;background:none;cursor:pointer;padding:0}
+  .empty{color:var(--soft);padding:28px 4px}
+
+  /* modal */
+  .modal{position:fixed;inset:0;background:rgba(14,31,61,.45);display:none;place-items:center}
+  .modal.open{display:grid}
+  .sheet{background:var(--white);border-radius:16px;padding:28px;width:340px}
+  .sheet h3{font-size:18px;margin-bottom:18px}
+  .sheet label{display:block;font-size:13px;color:var(--soft);margin-bottom:14px}
+  .sheet input{display:block;width:100%;margin-top:6px;border:1px solid var(--line);border-radius:10px;padding:10px}
+  .sheet .btns{display:flex;gap:8px;margin-top:6px}
+  .sheet .btns button{flex:1;padding:11px;border-radius:10px;border:0;cursor:pointer;font-weight:500}
+  .go{background:var(--yellow);color:var(--navy)}.no{background:var(--line)}
+
+  @media(max-width:720px){body{flex-direction:column}aside{width:auto;flex-direction:row;overflow-x:auto;padding:12px}.logo,.sync{display:none}.org{white-space:nowrap;gap:8px}main{padding:28px 20px}}
+
+  /* report */
+  #report{display:none}
+  @page{size:A4;margin:16mm}
+  @media print{
+    body{display:block;height:auto}aside,main,.modal{display:none!important}#report{display:block}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   }
-  .r-head { background:var(--navy); color:var(--white); padding:22px 26px; border-radius:10px; display:flex; justify-content:space-between; align-items:center; }
-  .r-head h1 { margin:0; font-size:24px; }
-  .r-head h1 span { color:var(--yellow); }
-  .r-head .p { font-size:13px; opacity:.9; text-align:left; }
-  .r-bar { height:5px; background:var(--yellow); border-radius:3px; margin:10px 0 18px; }
-  .r-sum { display:flex; gap:12px; margin-bottom:18px; }
-  .r-sum div { flex:1; border:1px solid var(--line); border-top:4px solid var(--yellow); border-radius:8px; padding:10px 14px; }
-  .r-sum b { font-size:22px; display:block; }
-  table.r { width:100%; border-collapse:collapse; font-size:13px; }
-  table.r th { background:var(--navy); color:var(--white); padding:9px 8px; text-align:right; font-weight:500; }
-  table.r td { padding:8px; border-bottom:1px solid var(--line); vertical-align:top; }
-  table.r tr:nth-child(even) td { background:#F8F9FC; }
-  .r-foot { margin-top:24px; font-size:11px; color:var(--muted); text-align:center; }
+  .rh{border-bottom:4px solid var(--yellow);padding-bottom:16px;margin-bottom:22px;display:flex;justify-content:space-between;align-items:flex-end}
+  .rh h2{font-size:26px;color:var(--navy)}.rh p{font-size:13px;color:var(--soft);margin-top:6px}
+  .rn{background:var(--navy);color:var(--white);border-radius:12px;padding:14px 22px;text-align:center}
+  .rn b{display:block;font-size:28px;color:var(--yellow)}.rn small{font-size:12px}
+  .rr{display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .rr i{font-style:normal;color:var(--soft);width:24px}.rr span{flex:1}.rr em{font-style:normal;color:var(--soft);font-size:13px}
 </style>
 </head>
 <body>
-<header>
-  <h1>منظّم <span>المهام</span></h1>
-  <div class="sync" id="sync">جارٍ التحميل…</div>
-</header>
+<aside id="side"><div class="logo">مهام<i>ي</i></div><div id="orgs"></div><div class="sync" id="sync"></div></aside>
 
-<div class="wrap">
-  <div class="tabs" id="tabs"></div>
-  <div class="stats" id="stats"></div>
+<main><div class="inner">
+  <div class="top"><h1 id="title"></h1><button class="pdf" id="pdfBtn">تقرير PDF</button></div>
+  <form class="add" id="add"><span>+</span><input id="inp" placeholder="أضف مهمة واضغط Enter" autocomplete="off" /></form>
+  <div id="open"></div>
+  <button class="sec" id="toggleDone"></button>
+  <div id="done" hidden></div>
+</div></main>
 
-  <div class="card">
-    <h2>مهمة جديدة</h2>
-    <form class="add" id="addForm">
-      <input id="fTitle" placeholder="عنوان المهمة" required />
-      <select id="fOrg"></select>
-      <input id="fDue" type="date" title="تاريخ الاستحقاق" />
-      <select id="fPri">
-        <option value="normal">أولوية عادية</option>
-        <option value="high">أولوية عالية</option>
-        <option value="low">أولوية منخفضة</option>
-      </select>
-      <button class="btn" type="submit">إضافة</button>
-      <textarea id="fNotes" placeholder="ملاحظات (اختياري)"></textarea>
-    </form>
-  </div>
+<div class="modal" id="modal"><div class="sheet">
+  <h3>تقرير المهام المنفذة</h3>
+  <label>من<input type="date" id="rFrom" /></label>
+  <label>إلى<input type="date" id="rTo" /></label>
+  <div class="btns"><button class="go" id="rGo">طباعة / حفظ PDF</button><button class="no" id="rNo">إلغاء</button></div>
+</div></div>
 
-  <div class="card">
-    <div class="toolbar">
-      <input id="q" placeholder="بحث…" />
-      <select id="statusF">
-        <option value="all">كل المهام</option>
-        <option value="open">قيد التنفيذ</option>
-        <option value="done">المنجزة</option>
-      </select>
-    </div>
-    <div id="list"></div>
-  </div>
-
-  <div class="card">
-    <h2>تقرير PDF للمهام المنفذة</h2>
-    <div class="report-form">
-      <label><small>الجهة</small><select id="rOrg"></select></label>
-      <label><small>من تاريخ</small><input type="date" id="rFrom" /></label>
-      <label><small>إلى تاريخ</small><input type="date" id="rTo" /></label>
-      <button class="btn navy" id="rBtn">إنشاء التقرير</button>
-    </div>
-    <p style="font-size:13px;color:var(--muted);margin:10px 0 0">ستفتح نافذة الطباعة — اختر «حفظ كـ PDF».</p>
-  </div>
-
-  <div id="report"></div>
-</div>
+<div id="report"></div>
 
 <script>
-const ORGS = ["MedGlobal", "ChildGuardians", "ACU", "MED", "Sakka"];
-let tasks = [], sha = null, current = "all", editing = null, saving = Promise.resolve();
-const $ = (id) => document.getElementById(id);
-const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
-const today = () => new Date().toISOString().slice(0, 10);
-const fmt = (d) => d ? new Date(d + (d.length === 10 ? "T00:00:00" : "")).toLocaleDateString("ar-EG-u-nu-latn", { year:"numeric", month:"short", day:"numeric" }) : "—";
+const ORGS=["MedGlobal","ChildGuardians","ACU","MED","Sakka"];
+let tasks=[],sha=null,cur=localStorage.getItem("org")||ORGS[0],q=Promise.resolve();
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const today=()=>new Date().toISOString().slice(0,10);
+const fmt=d=>d?new Date(d+"T00:00:00").toLocaleDateString("ar-EG-u-nu-latn",{year:"numeric",month:"long",day:"numeric"}):"";
 
-function headers() {
-  const h = { "Content-Type": "application/json" };
-  const p = localStorage.getItem("appPassword");
-  if (p) h["x-app-password"] = p;
-  return h;
+async function api(method,body){
+  const h={"Content-Type":"application/json"},p=localStorage.getItem("pw");if(p)h["x-app-password"]=p;
+  const r=await fetch("/api/tasks",{method,headers:h,body:body&&JSON.stringify(body)});
+  if(r.status===401){const n=prompt("كلمة المرور:");if(n){localStorage.setItem("pw",n);return api(method,body)}}
+  const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.error||r.status);return j;
 }
-async function api(method, body) {
-  let r = await fetch("/api/tasks", { method, headers: headers(), body: body && JSON.stringify(body) });
-  if (r.status === 401) {
-    const p = prompt("أدخل كلمة مرور الأداة:");
-    if (p) { localStorage.setItem("appPassword", p); return api(method, body); }
-  }
-  const j = await r.json().catch(() => ({}));
-  if (!r.ok) throw new Error(j.error || r.status);
-  return j;
-}
-function setSync(t) { $("sync").textContent = t; }
-
-async function load() {
-  try {
-    const j = await api("GET");
-    tasks = j.tasks; sha = j.sha;
-    setSync("متزامن مع GitHub ✓");
-  } catch (e) {
-    tasks = JSON.parse(localStorage.getItem("tasksCache") || "[]");
-    setSync("تعذّر الاتصال — عرض نسخة محلية (" + e.message + ")");
-  }
+const sync=t=>$("sync").textContent=t;
+async function load(){
+  try{const j=await api("GET");tasks=j.tasks;sha=j.sha;sync("محفوظ ✓")}
+  catch(e){tasks=JSON.parse(localStorage.getItem("cache")||"[]");sync("غير متصل")}
   render();
 }
-function save(msg) {
-  localStorage.setItem("tasksCache", JSON.stringify(tasks));
-  setSync("جارٍ الحفظ…");
-  saving = saving.then(async () => {
-    try {
-      const j = await api("PUT", { tasks, sha, message: msg });
-      sha = j.sha; setSync("تم الحفظ في GitHub ✓");
-    } catch (e) { setSync("فشل الحفظ: " + e.message); }
-  });
+function save(msg){
+  localStorage.setItem("cache",JSON.stringify(tasks));sync("جارٍ الحفظ…");
+  q=q.then(async()=>{try{sha=(await api("PUT",{tasks,sha,message:msg})).sha;sync("محفوظ ✓")}catch(e){sync("فشل الحفظ")}});
 }
 
-function render() {
-  // tabs
-  const count = (o) => tasks.filter((t) => o === "all" || t.org === o).length;
-  $("tabs").innerHTML = ["all", ...ORGS].map((o) =>
-    `<button class="tab ${o === current ? "active" : ""}" data-org="${o}">${o === "all" ? "الكل" : o}<span class="n">${count(o)}</span></button>`).join("");
-  // stats
-  const scope = tasks.filter((t) => current === "all" || t.org === current);
-  const done = scope.filter((t) => t.done).length;
-  const overdue = scope.filter((t) => !t.done && t.due && t.due < today()).length;
-  $("stats").innerHTML = `
-    <div class="stat"><b>${scope.length - done}</b><small>قيد التنفيذ</small></div>
-    <div class="stat"><b>${done}</b><small>منجزة</small></div>
-    <div class="stat"><b>${overdue}</b><small>متأخرة</small></div>`;
-  // list
-  const q = $("q").value.trim().toLowerCase(), sf = $("statusF").value;
-  const items = scope
-    .filter((t) => sf === "all" || (sf === "done" ? t.done : !t.done))
-    .filter((t) => !q || (t.title + " " + (t.notes || "")).toLowerCase().includes(q))
-    .sort((a, b) => a.done - b.done || (a.due || "9999").localeCompare(b.due || "9999"));
-  $("list").innerHTML = items.length ? items.map((t) => `
-    <div class="task ${t.done ? "done" : ""}">
-      <button class="chk" data-toggle="${t.id}" title="تبديل الحالة">${t.done ? "✓" : ""}</button>
-      <div class="t-body">
-        <div class="t-title">${esc(t.title)}</div>
-        <div class="t-meta">
-          <span class="org">${esc(t.org)}</span>
-          ${t.due ? `<span class="${!t.done && t.due < today() ? "over" : ""}">الاستحقاق: ${fmt(t.due)}</span>` : ""}
-          ${t.priority === "high" ? `<span class="pri-high">عالية</span>` : t.priority === "low" ? `<span>منخفضة</span>` : ""}
-          ${t.done ? `<span>أُنجزت: ${fmt(t.doneAt)}</span>` : ""}
-        </div>
-        ${t.notes ? `<div class="t-notes">${esc(t.notes)}</div>` : ""}
-      </div>
-      <div class="acts">
-        <button data-edit="${t.id}">تعديل</button>
-        <button data-del="${t.id}">حذف</button>
-      </div>
-    </div>`).join("") : `<div class="empty">لا توجد مهام هنا بعد.</div>`;
+function row(t){return `<div class="row ${t.done?"done":""}"><button class="box" data-t="${t.id}" aria-label="تم"></button>
+  <div class="txt">${esc(t.title)}</div>${t.done?`<span class="tag">${fmt(t.doneAt)}</span>`:""}<button class="x" data-d="${t.id}" aria-label="حذف">×</button></div>`}
+function render(){
+  $("orgs").innerHTML=ORGS.map(o=>`<button class="org ${o===cur?"on":""}" data-o="${o}">${o}<b>${tasks.filter(t=>t.org===o&&!t.done).length||""}</b></button>`).join("");
+  $("title").textContent=cur;
+  const mine=tasks.filter(t=>t.org===cur),open=mine.filter(t=>!t.done),done=mine.filter(t=>t.done).sort((a,b)=>b.doneAt.localeCompare(a.doneAt));
+  $("open").innerHTML=open.length?open.map(row).join(""):`<div class="empty">لا مهام مفتوحة.</div>`;
+  $("done").innerHTML=done.map(row).join("");
+  $("toggleDone").textContent=done.length?`${$("done").hidden?"عرض":"إخفاء"} المنجزة (${done.length})`:"";
 }
 
-// events
-$("tabs").onclick = (e) => { const b = e.target.closest("[data-org]"); if (!b) return; current = b.dataset.org; if (current !== "all") $("fOrg").value = current; render(); };
-$("q").oninput = render; $("statusF").onchange = render;
-$("list").onclick = (e) => {
-  const tg = e.target.closest("[data-toggle]"), ed = e.target.closest("[data-edit]"), dl = e.target.closest("[data-del]");
-  if (tg) {
-    const t = tasks.find((x) => x.id === tg.dataset.toggle);
-    t.done = !t.done; t.doneAt = t.done ? today() : null;
-    render(); save((t.done ? "إنجاز: " : "إعادة فتح: ") + t.title);
-  } else if (dl) {
-    const t = tasks.find((x) => x.id === dl.dataset.del);
-    if (!confirm("حذف المهمة «" + t.title + "»؟")) return;
-    tasks = tasks.filter((x) => x !== t); render(); save("حذف: " + t.title);
-  } else if (ed) {
-    const t = tasks.find((x) => x.id === ed.dataset.edit);
-    editing = t.id;
-    $("fTitle").value = t.title; $("fOrg").value = t.org; $("fDue").value = t.due || "";
-    $("fPri").value = t.priority || "normal"; $("fNotes").value = t.notes || "";
-    $("addForm").querySelector("button").textContent = "حفظ التعديل";
-    $("fTitle").focus(); window.scrollTo({ top: 0, behavior: "smooth" });
-  }
+$("orgs").onclick=e=>{const b=e.target.closest("[data-o]");if(!b)return;cur=b.dataset.o;localStorage.setItem("org",cur);render();$("inp").focus()};
+$("add").onsubmit=e=>{e.preventDefault();const v=$("inp").value.trim();if(!v)return;
+  tasks.push({id:crypto.randomUUID(),title:v,org:cur,done:false,doneAt:null,createdAt:today()});$("inp").value="";render();save("مهمة: "+v)};
+document.querySelector("main").onclick=e=>{
+  const t=e.target.closest("[data-t]"),d=e.target.closest("[data-d]");
+  if(t){const x=tasks.find(k=>k.id===t.dataset.t);x.done=!x.done;x.doneAt=x.done?today():null;render();save((x.done?"تم: ":"إعادة: ")+x.title)}
+  if(d){const x=tasks.find(k=>k.id===d.dataset.d);if(!confirm("حذف «"+x.title+"»؟"))return;tasks=tasks.filter(k=>k!==x);render();save("حذف: "+x.title)}
 };
-$("addForm").onsubmit = (e) => {
-  e.preventDefault();
-  const data = { title: $("fTitle").value.trim(), org: $("fOrg").value, due: $("fDue").value || null,
-                 priority: $("fPri").value, notes: $("fNotes").value.trim() };
-  if (!data.title) return;
-  if (editing) {
-    Object.assign(tasks.find((x) => x.id === editing), data);
-    save("تعديل: " + data.title); editing = null;
-    $("addForm").querySelector("button").textContent = "إضافة";
-  } else {
-    tasks.push({ id: crypto.randomUUID(), ...data, done: false, doneAt: null, createdAt: today() });
-    save("مهمة جديدة: " + data.title);
-  }
-  $("addForm").reset(); if (current !== "all") $("fOrg").value = current; render();
-};
+$("toggleDone").onclick=()=>{$("done").hidden=!$("done").hidden;render()};
 
-// report
-$("rBtn").onclick = () => {
-  const org = $("rOrg").value, from = $("rFrom").value, to = $("rTo").value;
-  const rows = tasks.filter((t) => t.done && t.org === org && (!from || t.doneAt >= from) && (!to || t.doneAt <= to))
-                    .sort((a, b) => (a.doneAt || "").localeCompare(b.doneAt || ""));
-  const open = tasks.filter((t) => !t.done && t.org === org).length;
-  const period = from || to ? `${from ? fmt(from) : "البداية"} — ${to ? fmt(to) : "اليوم"}` : "كامل الفترة";
-  $("report").innerHTML = `
-    <div class="r-head">
-      <div><h1>تقرير المهام المنفذة — <span>${esc(org)}</span></h1></div>
-      <div class="p">الفترة: ${period}<br>تاريخ الإصدار: ${fmt(today())}</div>
-    </div>
-    <div class="r-bar"></div>
-    <div class="r-sum">
-      <div><b>${rows.length}</b>مهام منفذة</div>
-      <div><b>${open}</b>مهام قيد التنفيذ حالياً</div>
-    </div>
-    ${rows.length ? `<table class="r"><thead><tr><th>#</th><th>المهمة</th><th>التفاصيل</th><th>تاريخ الإنجاز</th></tr></thead><tbody>
-      ${rows.map((t, i) => `<tr><td>${i + 1}</td><td>${esc(t.title)}</td><td>${esc(t.notes || "—")}</td><td>${fmt(t.doneAt)}</td></tr>`).join("")}
-    </tbody></table>` : `<p class="empty">لا توجد مهام منفذة في هذه الفترة.</p>`}
-    <div class="r-foot">${esc(org)} · تقرير المهام المنفذة</div>`;
-  const old = document.title; document.title = `تقرير ${org} ${today()}`;
-  setTimeout(() => { window.print(); document.title = old; }, 300);
+$("pdfBtn").onclick=()=>{$("rFrom").value=today().slice(0,8)+"01";$("rTo").value=today();$("modal").classList.add("open")};
+$("rNo").onclick=()=>$("modal").classList.remove("open");
+$("rGo").onclick=()=>{
+  const f=$("rFrom").value,to=$("rTo").value;
+  const rows=tasks.filter(t=>t.org===cur&&t.done&&(!f||t.doneAt>=f)&&(!to||t.doneAt<=to)).sort((a,b)=>a.doneAt.localeCompare(b.doneAt));
+  $("report").innerHTML=`<div class="rh"><div><h2>${esc(cur)}</h2><p>تقرير المهام المنفذة · ${fmt(f)||"البداية"} — ${fmt(to)||"اليوم"}</p></div>
+    <div class="rn"><b>${rows.length}</b><small>مهمة منفذة</small></div></div>
+    ${rows.map((t,i)=>`<div class="rr"><i>${i+1}</i><span>${esc(t.title)}</span><em>${fmt(t.doneAt)}</em></div>`).join("")||"<p>لا توجد مهام منفذة في هذه الفترة.</p>"}`;
+  $("modal").classList.remove("open");const o=document.title;document.title=`${cur} - تقرير ${today()}`;
+  setTimeout(()=>{print();document.title=o},200);
 };
-
-// init
-const opts = ORGS.map((o) => `<option>${o}</option>`).join("");
-$("fOrg").innerHTML = opts; $("rOrg").innerHTML = opts;
 load();
 </script>
 </body>
